@@ -1,17 +1,40 @@
 #include <stdio.h>
 #include <windows.h>
 
+// Функція для обчислення НСД двох чисел
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// Функція для обчислення НСК двох чисел
+int lcm(int a, int b) {
+    return (a / gcd(a, b)) * b;
+}
+
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    double t1, t2, t3;
-    printf("Введіть три значення:\n");
-    scanf("%lf %lf %lf", &t1, &t2, &t3);
+    int p;
+    printf("Введіть кількість чисел: \n");
+    scanf("%d", &p);
 
-    double total_rate = (1.0 / t1) + (1.0 / t2) + (1.0 / t3);
-    double time_needed = 1.0 / total_rate;
+    int numbers[20];
+    printf("Введіть числа: ");
+    for (int i = 0; i < p; i++) {
+        scanf("%d", &numbers[i]);
+    }
 
-    printf("Час, необхідний для з'їдання пирога: %.2f годин\n", time_needed);
+    int result = numbers[0];
+    for (int i = 1; i < p; i++) {
+        result = lcm(result, numbers[i]);
+    }
+
+    printf("Найменше спільне кратне: %d\n", result);
 
     return 0;
 }
