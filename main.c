@@ -1,40 +1,38 @@
 #include <stdio.h>
 #include <windows.h>
 
+long long countNumbers(int p) {
+    if (p == 1) return 2;
+    if (p == 2) return 4;
 
-int gcd(int a, int b) {
-    while (b != 0) {
-        int temp = b;
-        b = a % b;
-        a = temp;
+
+    long long dp[p+1][4];
+
+
+    dp[1][0] = 1;
+    dp[1][1] = 1;
+    dp[2][0] = 1;
+    dp[2][1] = 1;
+    dp[2][2] = 1;
+    dp[2][3] = 1;
+
+    for (int i = 3; i <= p; i++) {
+        dp[i][0] = dp[i-1][1] + dp[i-1][3];
+        dp[i][1] = dp[i-1][0] + dp[i-1][2];
+        dp[i][2] = dp[i-1][0];
+        dp[i][3] = dp[i-1][1];
     }
-    return a;
-}
 
-
-int lcm(int a, int b) {
-    return (a / gcd(a, b)) * b;
+    return dp[p][0] + dp[p][1] + dp[p][2] + dp[p][3];
 }
 
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     int p;
-    printf("Ã‚Ã¢Ã¥Ã¤Â³Ã²Ã¼ ÃªÂ³Ã«Ã¼ÃªÂ³Ã±Ã²Ã¼ Ã·Ã¨Ã±Ã¥Ã«: \n");
+    printf("Ââåä³òü ê³ëüê³ñòü ðîçðÿä³â: ");
     scanf("%d", &p);
 
-    int numbers[20];
-    printf("Ã‚Ã¢Ã¥Ã¤Â³Ã²Ã¼ Ã·Ã¨Ã±Ã«Ã : ");
-    for (int i = 0; i < p; i++) {
-        scanf("%d", &numbers[i]);
-    }
-
-    int result = numbers[0];
-    for (int i = 1; i < p; i++) {
-        result = lcm(result, numbers[i]);
-    }
-
-    printf("ÃÃ Ã©Ã¬Ã¥Ã­Ã¸Ã¥ Ã±Ã¯Â³Ã«Ã¼Ã­Ã¥ ÃªÃ°Ã Ã²Ã­Ã¥: %d\n", result);
-
+    printf("Ê³ëüê³ñòü ÷èñåë ³ç %d ðîçðÿä³â: %lld\n", p, countNumbers(p));
     return 0;
 }
