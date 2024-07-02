@@ -1,38 +1,33 @@
 #include <stdio.h>
 #include <windows.h>
 
-long long countNumbers(int p) {
-    if (p == 1) return 2;
-    if (p == 2) return 4;
-
-
-    long long dp[p+1][4];
-
-
-    dp[1][0] = 1;
-    dp[1][1] = 1;
-    dp[2][0] = 1;
-    dp[2][1] = 1;
-    dp[2][2] = 1;
-    dp[2][3] = 1;
-
-    for (int i = 3; i <= p; i++) {
-        dp[i][0] = dp[i-1][1] + dp[i-1][3];
-        dp[i][1] = dp[i-1][0] + dp[i-1][2];
-        dp[i][2] = dp[i-1][0];
-        dp[i][3] = dp[i-1][1];
+int equal_divisors(int n) {
+    int count = 0;
+    for (int r = 1; r < n; r++) {
+        if (n % r == 0) {
+            int m = (n / r) - 1;
+            if (m > 0 && n % m == 0) {
+                count++;
+            }
+        }
     }
-
-    return dp[p][0] + dp[p][1] + dp[p][2] + dp[p][3];
+    return count;
 }
 
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    int p;
-    printf("Введіть кількість розрядів: ");
-    scanf("%d", &p);
+    int n;
+    printf("Введіть натуральне число n: ");
+    scanf("%d", &n);
 
-    printf("Кількість чисел із %d розрядів: %lld\n", p, countNumbers(p));
+    if (n <= 1 || n >= 150) {
+        printf("Число повинно бути в діапазоні 1 < n < 150\n");
+        return 1;
+    }
+
+    int result = equal_divisors(n);
+    printf("Кількість рівних дільників числа %d: %d\n", n, result);
+
     return 0;
 }
