@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-// Функція для обчислення НСД двох чисел
+
 int gcd(int a, int b) {
     while (b != 0) {
         int temp = b;
@@ -11,7 +11,7 @@ int gcd(int a, int b) {
     return a;
 }
 
-// Функція для обчислення НСК двох чисел
+
 int lcm(int a, int b) {
     return (a / gcd(a, b)) * b;
 }
@@ -20,11 +20,11 @@ int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     int p;
-    printf("Введіть кількість чисел: \n");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЄВіГ«ГјГЄВіГ±ГІГј Г·ГЁГ±ГҐГ«: \n");
     scanf("%d", &p);
 
     int numbers[20];
-    printf("Введіть числа: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г·ГЁГ±Г«Г : ");
     for (int i = 0; i < p; i++) {
         scanf("%d", &numbers[i]);
     }
@@ -34,7 +34,7 @@ int main() {
         result = lcm(result, numbers[i]);
     }
 
-    printf("Найменше спільне кратне: %d\n", result);
+    printf("ГЌГ Г©Г¬ГҐГ­ГёГҐ Г±ГЇВіГ«ГјГ­ГҐ ГЄГ°Г ГІГ­ГҐ: %d\n", result);
 
     return 0;
 }
