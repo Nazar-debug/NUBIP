@@ -1,36 +1,16 @@
 #include <stdio.h>
-
-
-int countSequences(int n) {
-    if (n == 1) return 2;
-    if (n == 2) return 4;
-
-    int mod = 12345;
-    int a = 2, b = 4, c = 7;
-    int result;
-
-    for (int i = 4; i <= n; ++i) {
-        result = (a + b + c) % mod;
-        a = b;
-        b = c;
-        c = result;
-    }
-
-    return c;
-}
+#include <math.h>
 
 int main() {
-    int n;
-    printf("Enter the length of the sequence n: ");
-    scanf("%d", &n);
+    int x1, y1, x2, y2;
+    double length;
 
-    if (n <= 1 || n >= 10000) {
-        printf("Invalid value of n. It must be 1 < n < 10000.\n");
-        return 1;
-    }
+    printf("Enter coordinates x1, y1, x2, y2: ");
+    scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
 
-    int result = countSequences(n);
-    printf("Number of desired sequences: %d\n", result);
+    length = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+
+    printf("Length of the vector: %.6f\n", length);
 
     return 0;
 }
