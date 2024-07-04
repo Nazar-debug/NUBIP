@@ -1,38 +1,45 @@
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
 
-int countIntersectionPoints(double x1, double y1, double r1, double x2, double y2, double r2) {
-    double distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+int factorial(int n) {
+    int result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
 
-  
-    if (distance == 0 && r1 == r2) {
-        return -1; 
+
+int countAnagrams(char* word) {
+    int length = strlen(word);
+    int count[256] = {0};
+
+
+    for (int i = 0; i < length; i++) {
+        count[(unsigned char)word[i]]++;
     }
 
-    
-    if (distance > r1 + r2 || distance < fabs(r1 - r2)) {
-        return 0; 
+
+    int anagrams = factorial(length);
+
+
+    for (int i = 0; i < 256; i++) {
+        if (count[i] > 1) {
+            anagrams /= factorial(count[i]);
+        }
     }
 
-    
-    if (distance == r1 + r2 || distance == fabs(r1 - r2)) {
-        return 1; 
-    }
-
-    
-    return 2;
+    return anagrams;
 }
 
 int main() {
-    double x1, y1, r1, x2, y2, r2;
-    printf("Enter the coordinates and radius of the first circle (x1 y1 r1): ");
-    scanf("%lf %lf %lf", &x1, &y1, &r1);
-    printf("Enter the coordinates and radius of the second circle (x2 y2 r2): ");
-    scanf("%lf %lf %lf", &x2, &y2, &r2);
+    char word[15];
+    printf("Enter a word: ");
+    scanf("%14s", word);
 
-    int result = countIntersectionPoints(x1, y1, r1, x2, y2, r2);
-    printf("Number of intersection points: %d\n", result);
+    int anagrams_count = countAnagrams(word);
+    printf("Number of anagrams: %d\n", anagrams_count);
 
     return 0;
 }
