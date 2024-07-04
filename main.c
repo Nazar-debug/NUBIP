@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <math.h>
 
-// Function to calculate the number of intersection points
+
 int countIntersectionPoints(double x1, double y1, double r1, double x2, double y2, double r2) {
     double distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
-    // If the circles are identical
+  
     if (distance == 0 && r1 == r2) {
-        return -1; // Infinite intersections
+        return -1; 
     }
 
-    // If the circles are too far apart or one circle is completely inside the other without touching
+    
     if (distance > r1 + r2 || distance < fabs(r1 - r2)) {
-        return 0; // No intersections
+        return 0; 
     }
 
-    // If the circles touch at exactly one point
+    
     if (distance == r1 + r2 || distance == fabs(r1 - r2)) {
-        return 1; // One intersection
+        return 1; 
     }
 
-    // If the circles intersect at two points
+    
     return 2;
 }
 
