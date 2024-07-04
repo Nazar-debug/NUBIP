@@ -1,45 +1,38 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+
+int minSteps(int x, int y) {
+    int distance = y - x;
+    int step = 1, steps = 0, position = 0;
 
 
-int factorial(int n) {
-    int result = 1;
-    for (int i = 2; i <= n; i++) {
-        result *= i;
-    }
-    return result;
-}
-
-
-int countAnagrams(char* word) {
-    int length = strlen(word);
-    int count[256] = {0};
-
-
-    for (int i = 0; i < length; i++) {
-        count[(unsigned char)word[i]]++;
+    while (position < distance) {
+        steps++;
+        position += step;
+        if (position >= distance) break;
+        steps++;
+        position += step;
+        if (position >= distance) break;
+        step++;
     }
 
-
-    int anagrams = factorial(length);
-
-
-    for (int i = 0; i < 256; i++) {
-        if (count[i] > 1) {
-            anagrams /= factorial(count[i]);
-        }
-    }
-
-    return anagrams;
+    return steps;
 }
 
 int main() {
-    char word[15];
-    printf("Enter a word: ");
-    scanf("%14s", word);
+    int x, y;
+    printf("Enter x: ");
+    scanf("%d", &x);
+    printf("Enter y: ");
+    scanf("%d", &y);
 
-    int anagrams_count = countAnagrams(word);
-    printf("Number of anagrams: %d\n", anagrams_count);
+    if (x > y) {
+        printf("Invalid input: x should be less than or equal to y\n");
+        return 1;
+    }
+
+    int result = minSteps(x, y);
+    printf("Minimum number of steps: %d\n", result);
 
     return 0;
 }
